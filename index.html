@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Documents</title>
+    <link rel="shortcut icon" href="favicon.png">
+    <body bgcolor="#00ff00">
+    <style>
+        .card {
+            top: 30px;
+            padding-left: 30px;
+            width: 700px;
+            height: 432px;
+            border: 1px solid linear-gradient(to bottom, rgb(226, 226, 226) 0%, rgb(233, 233, 233) 75%, #e08b01 75%, #d88704 100%);;
+            background: linear-gradient(to bottom, white 0%, white 75%, #f39600 75%, #F49602 100%);
+            border-radius: 8px;
+            box-shadow: 0 3px 7px #00000071;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 3px 15px #000000;
+        }
+    </style>
+
+    <body>
+        <p>Not satisfied? Reloaded!</p>
+        <div class="card">
+        <h1 id="randomFullName"></h1>
+        <h2 id="randomGender"></h2>
+        <h2 id="randomDate"></h2>
+        <h2 id="randomCountry"></h2>
+        <br><br><br><br><br>
+        <h2 style="color: #ffffff;" id="randomNumber"></h2>
+        </div>
+    </body>
+
+    <script>
+        // 姓氏数组
+        var lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Oswald", "Pond", "Tyler", "Noble", "SuForeman", "Wright", "Chesterton", "Song"];
+
+        // 名字数组
+        var firstNames = ["Emma", "Olivia", "Ava", "Isabella", "Sophia", "Liam", "Noah", "William", "James", "Oliver", "Clara", "Amelia", "Amy", "Rose", "Donna", "Susan", "Barbara", "Ian", "John", "Ryan", "River"];
+     
+        // 国家数组
+        var countries = ["Chinese", "United States", "United Kingdom", "France", "Germany", "Japan", "Australia", "Canada", "Brazil", "India", "Russia", "South Africa", "Mexico", "Italy", "Korea", "New Zealand", "Argentina", "Egypt"];
+
+        // 性别数组
+        var gender = ["Man", "Woman", "Intersexual"];
+
+        // 在页面加载时生成随机姓名和证件号码
+        window.onload = function() {
+            generateRandomFullName();
+            generateRandomNumber();
+            generateRandomCountry();
+            generateRandomDate();
+            generateRandomGender();
+        };
+
+        function generateRandomFullName() {
+            var randomLastNameIndex = Math.floor(Math.random() * lastNames.length);
+            var randomFirstNameIndex = Math.floor(Math.random() * firstNames.length);
+            var randomLastName = lastNames[randomLastNameIndex];
+            var randomFirstName = firstNames[randomFirstNameIndex];
+            var randomFullName = randomFirstName + " " + randomLastName;
+            document.getElementById("randomFullName").innerText = "Name: " + randomFullName;
+        }
+
+        function generateRandomNumber() {
+            var randomNumber = Math.floor(Math.random() * 900000000000000000 + 100000000000000000);
+            document.getElementById("randomNumber").innerText = "ID: " + randomNumber;
+        }
+
+        function generateRandomCountry() {
+            var randomCountryIndex = Math.floor(Math.random() * countries.length);
+            var randomCountry = countries[randomCountryIndex];
+            document.getElementById("randomCountry").innerText = "Country: " + randomCountry;
+        }
+
+        function generateRandomGender() {
+            var randomGenderIndex = Math.floor(Math.random() * gender.length);
+            var randomGender = gender[randomGenderIndex];
+            document.getElementById("randomGender").innerText = "Gender:" + randomGender;
+        }
+
+        function generateRandomDate() {
+            var startDate = new Date(0); // 0/0/0000
+            var endDate = new Date(); // 当前日期
+            var randomDate = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
+    
+            var day = randomDate.getDate().toString().padStart(2, '0'); // 日期补零
+            var month = (randomDate.getMonth() + 1).toString().padStart(2, '0'); // 月份补零
+            var year = randomDate.getFullYear();
+    
+            var randomDateString = day + "/" + month + "/" + year;
+    
+            document.getElementById("randomDate").innerText = "Date of Birth: " + randomDateString;
+        }
+
+    </script>
+</html>
