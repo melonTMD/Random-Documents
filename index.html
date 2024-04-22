@@ -35,8 +35,9 @@
         <h1 id="randomFullName"></h1>
         <h2 id="randomGender"></h2>
         <h2 id="randomDate"></h2>
+        <h2 id="issueDate"></h2>
         <h2 id="randomCountry"></h2>
-        <br><br><br><br><br>
+        <br><br><br>
         <h2 style="color: #ffffff;" id="randomNumber"></h2>
         </div>
     </body>
@@ -59,7 +60,8 @@
             generateRandomFullName();
             generateRandomNumber();
             generateRandomCountry();
-            generateRandomDate();
+            generateRandomBirthDate();
+            generateRandomIssueDate();
             generateRandomGender();
         };
 
@@ -89,19 +91,48 @@
             document.getElementById("randomGender").innerText = "Gender:" + randomGender;
         }
 
-        function generateRandomDate() {
+        // 生成随机出生日期
+        function generateRandomBirthDate() {
             var startDate = new Date(0); // 0/0/0000
             var endDate = new Date(); // 当前日期
             var randomDate = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
-    
+
             var day = randomDate.getDate().toString().padStart(2, '0'); // 日期补零
             var month = (randomDate.getMonth() + 1).toString().padStart(2, '0'); // 月份补零
             var year = randomDate.getFullYear();
-    
+
             var randomDateString = day + "/" + month + "/" + year;
-    
-            document.getElementById("randomDate").innerText = "Date of Birth: " + randomDateString;
+
+            document.getElementById("randomDate").innerText = "BirthDate: " + randomDateString;
+
+            return randomDate;
         }
+
+        // 生成发证日期（在出生日期的十年后）
+        function generateRandomIssueDate() {
+            let birthDate = generateRandomBirthDate();
+            let issueDate = new Date(birthDate);
+            issueDate.setFullYear(issueDate.getFullYear() + 10);
+
+            while (issueDate >= new Date()) {
+                let birthYear = Math.floor(Math.random() * 31) + 1970;
+                let birthMonth = Math.floor(Math.random() * 12) + 1;
+                let daysInMonth = new Date(birthYear, birthMonth, 0).getDate();
+                let birthDay = Math.floor(Math.random() * daysInMonth) + 1;
+
+                birthDate = new Date(birthYear, birthMonth - 1, birthDay);
+
+                issueDate = new Date(birthDate);
+                issueDate.setFullYear(issueDate.getFullYear() + 10);
+            }
+
+            document.getElementById("issueDate").innerText = `IssueDate:${issueDate.toDateString()} ExpirationTime:10yr`;
+        }
+
+    </script>
+</body>
+</html>
+
 
     </script>
 </html>
